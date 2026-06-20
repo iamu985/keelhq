@@ -1,43 +1,69 @@
-# Astro Starter Kit: Minimal
+# KeelHq
 
-```sh
-npm create astro@latest -- --template minimal
-```
+**Build any website with AI. Let KeelHq handle everything behind it.**
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+KeelHq is the missing layer between AI-generated websites and a real, working online presence.
 
-## 🚀 Project Structure
+AI tools like Claude, Cursor, ChatGPT, and Windsurf can build beautiful websites in minutes. But once the design is done, your website still needs a place to store content, save images, receive contact forms, manage users, and stay online. KeelHq provides all of that — so you can focus on your brand, not the technical backend.
 
-Inside of your Astro project, you'll see the following folders and files:
+---
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+## What is KeelHq?
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+KeelHq gives your AI-built website everything it needs to run like a real business site:
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- **Content management** — Add projects, blog posts, services, and pages without touching code.
+- **Media storage** — Upload images, logos, and assets in one place.
+- **Contact forms** — Receive inquiries and leads without wiring up servers.
+- **Dashboard** — Manage everything from one simple interface.
+- **Authentication** — Keep your content and data secure.
+- **AI integration** — Let your AI assistant connect to real data and build faster.
 
-Any static assets, like images, can be placed in the `public/` directory.
+You design the website. KeelHq keeps it alive.
 
-## 🧞 Commands
+---
 
-All commands are run from the root of the project, from a terminal:
+## Why KeelHq?
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+| Website builders | Custom development | KeelHq |
+| :--------------- | :----------------- | :----- |
+| Easy to start | Unlimited flexibility | Generate any design with AI |
+| Hard to customize | Requires backend work | Keep full ownership of your site |
+| Limited by templates | Ongoing maintenance | Manage content through KeelHq |
+| | | Redesign whenever you want |
 
-## 👀 Want to learn more?
+---
 
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## How it works
+
+1. **Connect** — Link your AI coding assistant to KeelHq.
+2. **Create** — Describe the website you want and let AI build it.
+3. **Manage** — Update content, media, and settings through the KeelHq dashboard.
+4. **Evolve** — Redesign or switch frameworks anytime without losing your content.
+
+---
+
+## Who is it for?
+
+- **Founders** launching company or personal websites.
+- **Creators** showcasing content, media, and projects.
+- **Consultants** managing services, case studies, and client inquiries.
+- **Developers** building custom frontends without rebuilding backends.
+- **Agencies** creating and managing websites for multiple clients.
+- **Artists & influencers** focusing on their audience while the tech runs quietly in the background.
+
+---
+
+## Join the beta
+
+We are building the infrastructure layer for AI-generated websites.
+
+Join the beta and help shape the future of how websites are created and managed.
+
+[Join the Beta](https://keelhq.com#waitlist)
+
+---
+
+## Focus on your brand. Leave the infrastructure to KeelHq.
+
+© 2025 KeelHQ
