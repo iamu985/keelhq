@@ -1,0 +1,233 @@
+---
+/**
+ * HowItWorksSection — 4-step timeline showing the Keel workflow.
+ *
+ * Responsibility:
+ * - Render a vertical timeline on mobile, horizontal on tablet and desktop.
+ */
+
+interface Step {
+  readonly number: number;
+  readonly label: string;
+  readonly title: string;
+  readonly description: string;
+}
+
+const steps: readonly Step[] = [
+  {
+    number: 1,
+    label: 'Generate',
+    title: 'Generate',
+    description: 'Prompt any AI coding assistant to build your personal website.',
+  },
+  {
+    number: 2,
+    label: 'Connect',
+    title: 'Connect',
+    description: 'Link your site to Keel with a single environment variable.',
+  },
+  {
+    number: 3,
+    label: 'Manage',
+    title: 'Manage',
+    description: 'Update your content, media, and settings from the Keel dashboard.',
+  },
+  {
+    number: 4,
+    label: 'Redesign',
+    title: 'Redesign',
+    description: 'Regenerate the front-end whenever you like. Your content stays safe.',
+  },
+];
+---
+
+<section id="how-it-works" class="how-section" aria-labelledby="how-heading">
+  <hr class="section-divider" />
+
+  <div class="landing-section">
+    <p class="section-label" data-reveal>How It Works</p>
+    <h2 id="how-heading" class="section-title" data-reveal style="transition-delay: 80ms">
+      From prompt to published.
+    </h2>
+
+    <!-- Mobile: vertical timeline -->
+    <div class="timeline timeline--vertical">
+      {steps.map((step, index) => (
+        <div
+          class="timeline-step timeline-step--vertical"
+          data-reveal
+          style={`transition-delay: ${160 + index * 80}ms`}
+        >
+          <div class="timeline-step__left">
+            <div class="timeline-step__circle" aria-hidden="true">
+              <span class="timeline-step__number">{step.number}</span>
+            </div>
+            {index < steps.length - 1 && (
+              <div class="timeline-step__connector" aria-hidden="true"></div>
+            )}
+          </div>
+          <div class="timeline-step__body">
+            <h3 class="timeline-step__title">{step.title}</h3>
+            <p class="timeline-step__desc">{step.description}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Tablet + Desktop: horizontal timeline -->
+    <div class="timeline timeline--horizontal" aria-hidden="true">
+      <div class="timeline__track"></div>
+      {steps.map((step, index) => (
+        <div
+          class="timeline-step timeline-step--horizontal"
+          data-reveal
+          style={`transition-delay: ${200 + index * 100}ms`}
+        >
+          <div class="timeline-step__circle">
+            <span class="timeline-step__number">{step.number}</span>
+          </div>
+          <h3 class="timeline-step__title">{step.title}</h3>
+          <p class="timeline-step__desc">{step.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .how-section {
+    background-color: var(--color-bg);
+  }
+
+  /* ─── Vertical timeline (mobile default) ─────────────────────────── */
+
+  .timeline--vertical {
+    display: flex;
+    flex-direction: column;
+    margin-top: var(--space-8);
+  }
+
+  .timeline--horizontal {
+    display: none;
+  }
+
+  @media (min-width: 640px) {
+    .timeline--vertical {
+      display: none;
+    }
+
+    .timeline--horizontal {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: var(--space-6);
+      margin-top: var(--space-10);
+    }
+  }
+
+  /* ─── Vertical step ───────────────────────────────────────────────── */
+
+  .timeline-step--vertical {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--space-4);
+    text-align: left;
+  }
+
+  .timeline-step__left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .timeline-step__connector {
+    width: 2px;
+    flex: 1;
+    min-height: 36px;
+    background: repeating-linear-gradient(
+      to bottom,
+      var(--color-accent) 0,
+      var(--color-accent) 6px,
+      transparent 6px,
+      transparent 14px
+    );
+    margin-top: var(--space-2);
+    margin-bottom: var(--space-2);
+  }
+
+  .timeline-step__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding-bottom: var(--space-6);
+  }
+
+  /* ─── Horizontal step ─────────────────────────────────────────────── */
+
+  .timeline__track {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: 20px;
+    height: 2px;
+    background: repeating-linear-gradient(
+      to right,
+      var(--color-accent) 0,
+      var(--color-accent) 6px,
+      transparent 6px,
+      transparent 14px
+    );
+  }
+
+  .timeline-step--horizontal {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ─── Shared step elements ────────────────────────────────────────── */
+
+  .timeline-step__circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .timeline-step__number {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-accent-fg);
+  }
+
+  .timeline-step__title {
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+  }
+
+  @media (min-width: 1024px) {
+    .timeline-step__title {
+      font-size: var(--font-size-lg);
+    }
+  }
+
+  .timeline-step__desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-normal);
+    max-width: 22ch;
+  }
+</style>

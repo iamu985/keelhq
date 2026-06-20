@@ -1,0 +1,135 @@
+/**
+ * Landing page styles for Keel.
+ *
+ * Responsibility:
+ * - Extend the base token system with landing-specific type scale, gradients, and animations.
+ * - Define the reveal animation system and float keyframes.
+ */
+
+@import './tokens.css';
+
+:root {
+  /* Landing-specific type scale */
+  --font-size-hero: clamp(40px, 6vw, 72px);
+  --font-size-section-title: clamp(28px, 4vw, 48px);
+  --font-size-section-sub: clamp(16px, 2vw, 20px);
+
+  /* Gradient helpers */
+  --gradient-hero-glow: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(239, 200, 200, 0.22) 0%, transparent 70%);
+  --gradient-section-divider: linear-gradient(to right, transparent, var(--color-border), transparent);
+
+  /* Animation durations */
+  --anim-float-a: 4s;
+  --anim-float-b: 5.5s;
+  --anim-float-c: 7s;
+  --anim-reveal-duration: 0.7s;
+  --anim-stagger-step: 80ms;
+
+  /* Glass card */
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.55);
+  --glass-blur: 14px;
+}
+
+/* ─── Reveal system ──────────────────────────────────────────────────────── */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity var(--anim-reveal-duration) ease,
+    transform var(--anim-reveal-duration) ease;
+}
+
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Float animations ───────────────────────────────────────────────────── */
+
+@keyframes keel-float-a {
+  0%, 100% { transform: translateY(0px) rotate(-2deg); }
+  50% { transform: translateY(-10px) rotate(-2deg); }
+}
+
+@keyframes keel-float-b {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-14px) rotate(0deg); }
+}
+
+@keyframes keel-float-c {
+  0%, 100% { transform: translateY(0px) rotate(2deg); }
+  50% { transform: translateY(-8px) rotate(2deg); }
+}
+
+/* ─── Hero glow pulse ────────────────────────────────────────────────────── */
+
+@keyframes keel-glow-pulse {
+  0% { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* ─── SVG arrow dash animation ───────────────────────────────────────────── */
+
+@keyframes keel-dash {
+  to { stroke-dashoffset: -24; }
+}
+
+/* ─── Reduced motion overrides ───────────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .workflow-card {
+    animation: none;
+  }
+}
+
+/* ─── Landing section shared base ────────────────────────────────────────── */
+
+.landing-section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-12) var(--space-6);
+}
+
+.landing-section--wide {
+  max-width: 1400px;
+}
+
+.section-divider {
+  height: 1px;
+  background: var(--gradient-section-divider);
+  border: none;
+  margin: 0;
+}
+
+.section-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-3);
+}
+
+.section-title {
+  font-size: var(--font-size-section-title);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
+  margin-bottom: var(--space-4);
+}
+
+.section-subtitle {
+  font-size: var(--font-size-section-sub);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-normal);
+  max-width: 56ch;
+}

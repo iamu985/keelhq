@@ -1,0 +1,212 @@
+---
+/**
+ * WaitlistSection — email capture form for the Keel waitlist.
+ *
+ * Responsibility:
+ * - Render a centred email form with loading, success, and error states.
+ * - Delegate submission to waitlistService via a client-side script.
+ */
+---
+
+<section id="waitlist" class="waitlist-section" aria-labelledby="waitlist-heading">
+  <hr class="section-divider" />
+
+  <div class="landing-section">
+    <div class="waitlist-card" data-reveal>
+      <p class="section-label">Early Access</p>
+      <h2 id="waitlist-heading" class="section-title waitlist-title">
+        Be among the first to try Keel.
+      </h2>
+      <p class="waitlist-subtitle">
+        Early users receive free access during the beta period.
+      </p>
+      <form class="waitlist-form" id="waitlist-form" novalidate aria-label="Waitlist sign-up form">
+        <label class="waitlist-form__label" for="waitlist-email">Email address</label>
+        <input
+          class="waitlist-form__input"
+          id="waitlist-email"
+          type="email"
+          name="email"
+          placeholder="you@example.com"
+          required
+          autocomplete="email"
+        />
+        <button class="waitlist-form__submit" type="submit" id="waitlist-submit">
+          Join Waitlist
+        </button>
+      </form>
+      <p class="waitlist-status waitlist-status--success" id="waitlist-success" role="status" aria-live="polite" hidden>
+        You're on the list! We'll be in touch.
+      </p>
+      <div class="waitlist-status waitlist-status--error" id="waitlist-error" role="alert" aria-live="assertive" hidden>
+        <span id="waitlist-error-msg">Something went wrong. Please try again.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // TODO: add unit tests for this logic
+  import { addToWaitlist } from '../../services/waitlist/waitlistService';
+
+  const form = document.getElementById('waitlist-form') as HTMLFormElement | null;
+  const submitButton = document.getElementById('waitlist-submit') as HTMLButtonElement | null;
+  const emailInput = document.getElementById('waitlist-email') as HTMLInputElement | null;
+  const successMessage = document.getElementById('waitlist-success') as HTMLElement | null;
+  const errorBanner = document.getElementById('waitlist-error') as HTMLElement | null;
+  const errorMessage = document.getElementById('waitlist-error-msg') as HTMLElement | null;
+
+  form?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const email = emailInput?.value.trim() ?? '';
+    if (!email) return;
+
+    setLoadingState(true);
+    hideStatusMessages();
+
+    const result = await addToWaitlist(email);
+
+    setLoadingState(false);
+
+    if (result.success) {
+      showSuccess();
+      form.reset();
+    } else {
+      showError(result.error ?? 'Something went wrong. Please try again.');
+    }
+  });
+
+  function setLoadingState(isLoading: boolean): void {
+    if (!submitButton) return;
+    submitButton.disabled = isLoading;
+    submitButton.textContent = isLoading ? 'Joining…' : 'Join Waitlist';
+  }
+
+  function hideStatusMessages(): void {
+    if (successMessage) successMessage.hidden = true;
+    if (errorBanner) errorBanner.hidden = true;
+  }
+
+  function showSuccess(): void {
+    if (successMessage) successMessage.hidden = false;
+  }
+
+  function showError(message: string): void {
+    if (errorMessage) errorMessage.textContent = message;
+    if (errorBanner) errorBanner.hidden = false;
+  }
+</script>
+
+<style>
+  .waitlist-section {
+    background-color: var(--color-oatmeal);
+  }
+
+  .waitlist-card {
+    padding: var(--space-8);
+    background-color: var(--color-surface);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+    margin: 0 auto;
+    max-width: 100%;
+    text-align: left;
+    align-items: flex-start;
+  }
+
+  @media (min-width: 640px) {
+    .waitlist-card {
+      text-align: center;
+      align-items: center;
+      padding: var(--space-10);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .waitlist-card {
+      max-width: 520px;
+    }
+  }
+
+  .waitlist-title {
+    margin-bottom: 0;
+  }
+
+  .waitlist-subtitle {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-normal);
+  }
+
+  .waitlist-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    width: 100%;
+  }
+
+  .waitlist-form__label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+    text-align: left;
+  }
+
+  .waitlist-form__input {
+    width: 100%;
+    padding: var(--space-3) var(--space-4);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-input);
+    background-color: var(--color-input-bg);
+    font-size: var(--font-size-base);
+    color: var(--color-text-primary);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .waitlist-form__input:focus {
+    outline: none;
+    border-color: var(--color-border-focus);
+    box-shadow: var(--shadow-input-focus);
+  }
+
+  .waitlist-form__submit {
+    width: 100%;
+    padding: var(--space-3) var(--space-6);
+    background-color: var(--color-accent);
+    color: var(--color-accent-fg);
+    border: none;
+    border-radius: var(--radius-button);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    cursor: pointer;
+    transition: background-color var(--transition-fast);
+  }
+
+  .waitlist-form__submit:hover:not(:disabled) {
+    background-color: var(--color-accent-hover);
+  }
+
+  .waitlist-form__submit:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .waitlist-status--success {
+    font-size: var(--font-size-sm);
+    color: var(--color-success);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .waitlist-status--error {
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--color-error-bg);
+    border: 1px solid var(--color-error-border);
+    border-radius: var(--radius-input);
+    font-size: var(--font-size-sm);
+    color: var(--color-error);
+    width: 100%;
+  }
+</style>

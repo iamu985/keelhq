@@ -1,0 +1,84 @@
+---
+/**
+ * FutureSection — editorial vision statement for Keel.
+ *
+ * Responsibility:
+ * - Render a large editorial block: left-aligned on mobile, centred on tablet+.
+ */
+---
+
+<section class="future-section" aria-labelledby="future-heading">
+  <hr class="section-divider" />
+
+  <div class="landing-section">
+    <div class="future-block" data-reveal>
+      <h2 id="future-heading" class="future-title">
+        Your content should survive <span class="future-title__accent">redesigns.</span>
+      </h2>
+      <p class="future-body">
+        AI makes redesigning your website effortless — a single prompt and your front-end is transformed. But your blog posts, portfolio images, contact form submissions, and client data should never be at risk.
+      </p>
+      <p class="future-body" data-reveal style="transition-delay: 120ms">
+        Keel separates your content and backend from your presentation layer. Redesign as many times as you like. Your data stays permanent, versioned, and yours.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .future-section {
+    background-color: var(--color-bg);
+  }
+
+  .future-block {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    text-align: left;
+    max-width: 100%;
+  }
+
+  @media (min-width: 640px) {
+    .future-block {
+      max-width: 620px;
+      text-align: center;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .future-block {
+      max-width: 760px;
+    }
+  }
+
+  .future-title {
+    font-size: var(--font-size-section-title);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    line-height: var(--line-height-tight);
+    letter-spacing: -0.02em;
+  }
+
+  .future-title__accent {
+    position: relative;
+    display: inline-block;
+  }
+
+  .future-title__accent::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -4px;
+    height: 6px;
+    background-color: var(--color-chartreuse);
+    border-radius: 3px;
+  }
+
+  .future-body {
+    font-size: var(--font-size-section-sub);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-normal);
+  }
+</style>
