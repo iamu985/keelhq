@@ -1,16 +1,32 @@
 ---
 /**
- * FooterBar — minimal landing page footer.
+ * FooterBar — premium landing page footer.
  *
  * Responsibility:
- * - Render copyright notice and a "Built with AI" tagline.
+ * - Render the brand logo and name on the left.
+ * - Render the tagline and copyright on the right.
+ * - Stay minimal, accessible, and responsive.
  */
 ---
 
 <footer class="footer" role="contentinfo">
   <div class="footer__inner">
-    <span class="footer__copy">&copy; 2025 Keel</span>
-    <span class="footer__tagline">Built with AI</span>
+    <div class="footer__brand">
+      <img
+        class="footer__logo"
+        src="/logo.ico"
+        alt=""
+        width="28"
+        height="28"
+        aria-hidden="true"
+      />
+      <span class="footer__name">KeelHq</span>
+    </div>
+
+    <div class="footer__meta">
+      <p class="footer__tagline">Focus on your brand. <br />Leave the infrastructure to KeelHq.</p>
+      <span class="footer__copy">&copy; 2025 KeelHq</span>
+    </div>
   </div>
 </footer>
 
@@ -23,12 +39,71 @@
 
   .footer__inner {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: var(--space-6);
     max-width: 1200px;
     margin: 0 auto;
-    padding: var(--space-5) var(--space-6);
+    padding: var(--space-10) var(--space-6) var(--space-8) var(--space-6);
+  }
+
+  .footer__brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .footer__logo {
+    display: block;
+    flex-shrink: 0;
+    object-fit: contain;
+  }
+
+  .footer__name {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    letter-spacing: -0.01em;
+  }
+
+  .footer__meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .footer__tagline {
+    max-width: 32ch;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-tight);
+    color: var(--color-text-primary);
+  }
+
+  .footer__copy {
     font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
+  }
+
+  @media (min-width: 640px) {
+    .footer__inner {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-8);
+      padding: var(--space-12) var(--space-6) var(--space-10) var(--space-6);
+    }
+
+    .footer__meta {
+      align-items: flex-end;
+      text-align: right;
+    }
+
+    .footer__name {
+      font-size: var(--font-size-xl);
+    }
+
+    .footer__tagline {
+      font-size: var(--font-size-base);
+    }
   }
 </style>

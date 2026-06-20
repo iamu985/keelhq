@@ -1,6 +1,6 @@
 ---
 /**
- * AuthCard — branded card wrapper for all authentication screens.
+ * AuthCard — branded card wrapper for all KeelHq authentication screens.
  *
  * Responsibility:
  * - Render the visual card container with logo, product name, tagline.
@@ -10,25 +10,18 @@
 
 <div class="auth-card">
   <header class="auth-card__header">
-    <a href="/" class="auth-card__logo-link" aria-label="Keel home">
-      <svg
+    <a href="/" class="auth-card__logo-link" aria-label="KeelHq home">
+      <img
         class="auth-card__logo"
+        src="/logo.ico"
+        alt=""
         width="36"
         height="36"
-        viewBox="0 0 36 36"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
-      >
-        <!-- Anchor / keel symbol — placeholder, swap with real brand mark -->
-        <circle cx="18" cy="18" r="17" stroke="currentColor" stroke-width="2" />
-        <line x1="18" y1="8" x2="18" y2="28" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-        <line x1="10" y1="14" x2="26" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-        <path d="M12 28 C12 28 18 24 24 28" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none" />
-      </svg>
+      />
     </a>
 
-    <h1 class="auth-card__title">Keel</h1>
+    <h1 class="auth-card__title">KeelHq</h1>
     <p class="auth-card__tagline">AI-native personal brand infrastructure.</p>
   </header>
 

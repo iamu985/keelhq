@@ -1,5 +1,5 @@
 /**
- * Authentication service for Keel.
+ * Authentication service for KeelHq.
  *
  * Responsibility:
  * - Provide a single integration point for all auth operations.

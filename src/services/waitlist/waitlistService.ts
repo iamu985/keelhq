@@ -1,5 +1,5 @@
 /**
- * Waitlist service — handles email sign-ups for the Keel waitlist.
+ * Waitlist service — handles email sign-ups for the KeelHq waitlist.
  *
  * Responsibility:
  * - Insert a new email into the waitlist_users table via Supabase.
