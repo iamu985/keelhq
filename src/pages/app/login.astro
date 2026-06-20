@@ -1,0 +1,18 @@
+---
+/**
+ * /app/login — Keel authentication page.
+ *
+ * Responsibility:
+ * - Compose AuthLayout, AuthCard, and LoginForm into the /app/login route.
+ */
+
+import AuthLayout from '../../layouts/AuthLayout.astro';
+import AuthCard from '../../components/auth/AuthCard.astro';
+import LoginForm from '../../components/auth/LoginForm.astro';
+---
+
+<AuthLayout title="Sign in — Keel">
+  <AuthCard>
+    <LoginForm />
+  </AuthCard>
+</AuthLayout>

@@ -1,0 +1,79 @@
+/**
+ * Design tokens for Keel.
+ *
+ * Responsibility:
+ * - Central source of all CSS custom properties (colors, spacing, radius, shadows, typography).
+ */
+
+:root {
+  /* Core surface & text */
+  --color-bg: #f5f3ef;
+  --color-surface: #ffffff;
+  --color-text-primary: #2b2539;
+  --color-text-secondary: #7a7488;
+
+  /* Accent (coral-led) */
+  --color-accent: #d97f7f;
+  --color-accent-hover: #c56a6a;
+  --color-accent-fg: #ffffff;
+
+  /* Raw palette swatches */
+  --color-slate: #2b2539;
+  --color-oatmeal: #ebe9e4;
+  --color-coral: #efc8c8;
+  --color-sea: #bed3cc;
+  --color-umber: #7b6767;
+  --color-chartreuse: #eefcc8;
+
+  /* Semantic states */
+  --color-error: #c5564f;
+  --color-error-bg: #fdf2f2;
+  --color-error-border: #f5c2c2;
+  --color-success: #4f7d6c;
+  --color-success-bg: #f0f9f5;
+  --color-success-border: #b8ddd3;
+
+  /* Structure */
+  --color-border: #e3dfd6;
+  --color-border-focus: var(--color-accent);
+  --color-input-bg: #faf9f7;
+
+  /* Radius */
+  --radius-card: 16px;
+  --radius-input: 8px;
+  --radius-button: 8px;
+  --radius-badge: 4px;
+
+  /* Shadows */
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.05);
+  --shadow-input-focus: 0 0 0 3px rgba(217, 127, 127, 0.18);
+
+  /* Spacing scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+
+  /* Typography */
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-size-xs: 12px;
+  --font-size-sm: 13px;
+  --font-size-base: 15px;
+  --font-size-lg: 17px;
+  --font-size-xl: 22px;
+  --font-size-2xl: 28px;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --line-height-tight: 1.25;
+  --line-height-normal: 1.5;
+
+  /* Transitions */
+  --transition-fast: 120ms ease;
+  --transition-base: 180ms ease;
+}

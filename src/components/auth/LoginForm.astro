@@ -1,0 +1,500 @@
+---
+/**
+ * LoginForm — email/password login form with validation and state management.
+ *
+ * Responsibility:
+ * - Render login form fields, submit button, and supplementary links.
+ * - Handle client-side validation and loading/error/success states.
+ * - Delegate authentication to authService (via inline <script>).
+ */
+---
+
+<form id="login-form" class="login-form" novalidate>
+  <!-- Status banners -->
+  <div
+    id="login-error"
+    class="login-form__banner login-form__banner--error"
+    role="alert"
+    aria-live="polite"
+    hidden
+  >
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5" />
+      <line x1="8" y1="5" x2="8" y2="8.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+      <circle cx="8" cy="11" r="0.75" fill="currentColor" />
+    </svg>
+    <span id="login-error-text"></span>
+  </div>
+
+  <div
+    id="login-success"
+    class="login-form__banner login-form__banner--success"
+    role="status"
+    aria-live="polite"
+    hidden
+  >
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <circle cx="8" cy="8" r="7" stroke="currentColor" stroke-width="1.5" />
+      <polyline points="5,8 7,10.5 11,6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    <span id="login-success-text">Signed in successfully.</span>
+  </div>
+
+  <!-- Email field -->
+  <div class="login-form__field">
+    <label for="login-email" class="login-form__label">Email address</label>
+    <input
+      id="login-email"
+      name="email"
+      type="email"
+      autocomplete="email"
+      class="login-form__input"
+      placeholder="you@example.com"
+      required
+      aria-describedby="login-email-error"
+    />
+    <span id="login-email-error" class="login-form__field-error" role="alert" aria-live="polite"></span>
+  </div>
+
+  <!-- Password field -->
+  <div class="login-form__field">
+    <div class="login-form__label-row">
+      <label for="login-password" class="login-form__label">Password</label>
+      <a href="/app/forgot-password" class="login-form__link login-form__link--subtle">
+        Forgot password?
+      </a>
+    </div>
+    <div class="login-form__input-wrapper">
+      <input
+        id="login-password"
+        name="password"
+        type="password"
+        autocomplete="current-password"
+        class="login-form__input login-form__input--with-action"
+        placeholder="••••••••"
+        required
+        aria-describedby="login-password-error"
+      />
+      <button
+        id="password-toggle"
+        type="button"
+        class="login-form__password-toggle"
+        aria-label="Show password"
+        aria-pressed="false"
+        tabindex="0"
+      >
+        <!-- Eye open icon (shown when password is hidden) -->
+        <svg id="icon-eye-open" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+          <path d="M1 9C1 9 4 3.5 9 3.5C14 3.5 17 9 17 9C17 9 14 14.5 9 14.5C4 14.5 1 9 1 9Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" />
+          <circle cx="9" cy="9" r="2.25" stroke="currentColor" stroke-width="1.4" />
+        </svg>
+        <!-- Eye closed icon (shown when password is visible) -->
+        <svg id="icon-eye-closed" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" style="display:none">
+          <path d="M2 2L16 16" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+          <path d="M7.5 4A8 8 0 0 1 9 3.5C14 3.5 17 9 17 9C17 9 16.1 10.6 14.7 12" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+          <path d="M10.6 13.8C10.1 14.1 9.6 14.3 9 14.5C4 14.5 1 9 1 9C1 9 2 7.2 3.7 5.7" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+    <span id="login-password-error" class="login-form__field-error" role="alert" aria-live="polite"></span>
+  </div>
+
+  <!-- Submit button -->
+  <button
+    id="login-submit"
+    type="submit"
+    class="login-form__submit"
+  >
+    <span id="login-submit-text">Sign in</span>
+    <svg
+      id="login-spinner"
+      class="login-form__spinner"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+      style="display:none"
+    >
+      <circle cx="8" cy="8" r="6" stroke="currentColor" stroke-width="2" stroke-dasharray="28" stroke-dashoffset="10" stroke-linecap="round" />
+    </svg>
+  </button>
+
+  <!-- Divider -->
+  <div class="login-form__divider" aria-hidden="true">
+    <span>or</span>
+  </div>
+
+  <!-- Registration link -->
+  <p class="login-form__signup">
+    Don't have an account?
+    <a href="/app/register" class="login-form__link">Sign up</a>
+  </p>
+</form>
+
+<style>
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  /* Banners */
+  .login-form__banner {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-input);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-normal);
+  }
+
+  .login-form__banner[hidden] {
+    display: none;
+  }
+
+  .login-form__banner--error {
+    color: var(--color-error);
+    background-color: var(--color-error-bg);
+    border: 1px solid var(--color-error-border);
+  }
+
+  .login-form__banner--success {
+    color: var(--color-success);
+    background-color: var(--color-success-bg);
+    border: 1px solid var(--color-success-border);
+  }
+
+  /* Fields */
+  .login-form__field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .login-form__label-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .login-form__label {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-primary);
+  }
+
+  .login-form__input {
+    height: 44px;
+    width: 100%;
+    padding: 0 var(--space-4);
+    background-color: var(--color-input-bg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-input);
+    font-size: var(--font-size-base);
+    color: var(--color-text-primary);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    outline: none;
+  }
+
+  .login-form__input::placeholder {
+    color: var(--color-text-secondary);
+    opacity: 0.7;
+  }
+
+  .login-form__input:focus {
+    border-color: var(--color-border-focus);
+    box-shadow: var(--shadow-input-focus);
+  }
+
+  .login-form__input--with-action {
+    padding-right: 44px;
+  }
+
+  /* Input wrapper for password + toggle */
+  .login-form__input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .login-form__password-toggle {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 44px;
+    width: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--color-text-secondary);
+    border-radius: 0 var(--radius-input) var(--radius-input) 0;
+    transition: color var(--transition-fast);
+  }
+
+  .login-form__password-toggle:hover {
+    color: var(--color-text-primary);
+  }
+
+  /* Field-level validation error */
+  .login-form__field-error {
+    font-size: var(--font-size-xs);
+    color: var(--color-error);
+    min-height: 16px;
+    line-height: var(--line-height-tight);
+  }
+
+  /* Submit button */
+  .login-form__submit {
+    height: 44px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    background-color: var(--color-accent);
+    color: var(--color-accent-fg);
+    border: none;
+    border-radius: var(--radius-button);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    transition: background-color var(--transition-base);
+    margin-top: var(--space-1);
+  }
+
+  .login-form__submit:hover:not(:disabled) {
+    background-color: var(--color-accent-hover);
+  }
+
+  .login-form__submit:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+  }
+
+  /* Spinner animation */
+  .login-form__spinner {
+    animation: keel-spin 0.75s linear infinite;
+    flex-shrink: 0;
+  }
+
+  @keyframes keel-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Divider */
+  .login-form__divider {
+    position: relative;
+    text-align: center;
+  }
+
+  .login-form__divider::before {
+    content: '';
+    position: absolute;
+    inset: 50% 0 auto 0;
+    height: 1px;
+    background-color: var(--color-border);
+  }
+
+  .login-form__divider span {
+    position: relative;
+    display: inline-block;
+    background-color: var(--color-surface);
+    padding: 0 var(--space-3);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* Links */
+  .login-form__link {
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-accent);
+    transition: color var(--transition-fast);
+  }
+
+  .login-form__link:hover {
+    color: var(--color-accent-hover);
+  }
+
+  .login-form__link--subtle {
+    color: var(--color-text-secondary);
+    font-weight: var(--font-weight-regular);
+  }
+
+  .login-form__link--subtle:hover {
+    color: var(--color-text-primary);
+  }
+
+  /* Sign-up prompt */
+  .login-form__signup {
+    text-align: center;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+  }
+</style>
+
+<script>
+  /**
+   * LoginForm client-side controller.
+   *
+   * Responsibility:
+   * - Validate form fields before submission.
+   * - Manage loading, error, and success UI states.
+   * - Delegate authentication to authService.
+   *
+   * TODO: add unit tests for validation logic
+   */
+  import { login } from '../../services/auth/authService';
+
+  const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const MIN_PASSWORD_LENGTH = 8;
+
+  function getFormElements() {
+    return {
+      form: document.getElementById('login-form') as HTMLFormElement,
+      emailInput: document.getElementById('login-email') as HTMLInputElement,
+      passwordInput: document.getElementById('login-password') as HTMLInputElement,
+      submitButton: document.getElementById('login-submit') as HTMLButtonElement,
+      submitText: document.getElementById('login-submit-text') as HTMLSpanElement,
+      spinner: document.getElementById('login-spinner') as SVGElement,
+      errorBanner: document.getElementById('login-error') as HTMLDivElement,
+      errorText: document.getElementById('login-error-text') as HTMLSpanElement,
+      successBanner: document.getElementById('login-success') as HTMLDivElement,
+      passwordToggle: document.getElementById('password-toggle') as HTMLButtonElement,
+      iconEyeOpen: document.getElementById('icon-eye-open') as SVGElement,
+      iconEyeClosed: document.getElementById('icon-eye-closed') as SVGElement,
+      emailError: document.getElementById('login-email-error') as HTMLSpanElement,
+      passwordError: document.getElementById('login-password-error') as HTMLSpanElement,
+    };
+  }
+
+  function clearFieldErrors(elements: ReturnType<typeof getFormElements>): void {
+    elements.emailError.textContent = '';
+    elements.passwordError.textContent = '';
+    elements.emailInput.removeAttribute('aria-invalid');
+    elements.passwordInput.removeAttribute('aria-invalid');
+  }
+
+  function showBanner(
+    banner: HTMLElement,
+    hidden: boolean,
+    textEl?: HTMLElement,
+    message?: string
+  ): void {
+    banner.hidden = hidden;
+    if (textEl && message !== undefined) {
+      textEl.textContent = message;
+    }
+  }
+
+  function setLoadingState(
+    elements: ReturnType<typeof getFormElements>,
+    loading: boolean
+  ): void {
+    elements.submitButton.disabled = loading;
+    elements.submitText.textContent = loading ? 'Signing in…' : 'Sign in';
+    elements.spinner.style.display = loading ? 'block' : 'none';
+  }
+
+  function validateFields(
+    elements: ReturnType<typeof getFormElements>
+  ): boolean {
+    let isValid = true;
+
+    const email = elements.emailInput.value.trim();
+    const password = elements.passwordInput.value;
+
+    if (!email) {
+      elements.emailError.textContent = 'Email address is required.';
+      elements.emailInput.setAttribute('aria-invalid', 'true');
+      isValid = false;
+    } else if (!EMAIL_REGEX.test(email)) {
+      elements.emailError.textContent = 'Please enter a valid email address.';
+      elements.emailInput.setAttribute('aria-invalid', 'true');
+      isValid = false;
+    }
+
+    if (!password) {
+      elements.passwordError.textContent = 'Password is required.';
+      elements.passwordInput.setAttribute('aria-invalid', 'true');
+      isValid = false;
+    } else if (password.length < MIN_PASSWORD_LENGTH) {
+      elements.passwordError.textContent = `Password must be at least ${MIN_PASSWORD_LENGTH} characters.`;
+      elements.passwordInput.setAttribute('aria-invalid', 'true');
+      isValid = false;
+    }
+
+    return isValid;
+  }
+
+  function initPasswordToggle(elements: ReturnType<typeof getFormElements>): void {
+    elements.passwordToggle.addEventListener('click', () => {
+      const isHidden = elements.passwordInput.type === 'password';
+      elements.passwordInput.type = isHidden ? 'text' : 'password';
+      elements.passwordToggle.setAttribute('aria-label', isHidden ? 'Hide password' : 'Show password');
+      elements.passwordToggle.setAttribute('aria-pressed', isHidden ? 'true' : 'false');
+      elements.iconEyeOpen.style.display = isHidden ? 'none' : 'block';
+      elements.iconEyeClosed.style.display = isHidden ? 'block' : 'none';
+    });
+  }
+
+  function initFormSubmit(elements: ReturnType<typeof getFormElements>): void {
+    elements.form.addEventListener('submit', async (event: SubmitEvent) => {
+      event.preventDefault();
+
+      showBanner(elements.errorBanner, true, elements.errorText);
+      showBanner(elements.successBanner, true);
+      clearFieldErrors(elements);
+
+      if (!validateFields(elements)) {
+        return;
+      }
+
+      setLoadingState(elements, true);
+
+      try {
+        const result = await login(
+          elements.emailInput.value.trim(),
+          elements.passwordInput.value
+        );
+
+        if (result.success) {
+          showBanner(elements.successBanner, false);
+          // TODO: replace with real redirect once backend is wired
+          console.info('[Keel] Login successful — redirect to dashboard here.');
+        } else {
+          showBanner(
+            elements.errorBanner,
+            false,
+            elements.errorText,
+            result.error ?? 'Something went wrong. Please try again.'
+          );
+        }
+      } catch (err: unknown) {
+        const message =
+          err instanceof Error ? err.message : 'An unexpected error occurred.';
+        showBanner(elements.errorBanner, false, elements.errorText, message);
+      } finally {
+        setLoadingState(elements, false);
+      }
+    });
+  }
+
+  function init(): void {
+    const elements = getFormElements();
+    initPasswordToggle(elements);
+    initFormSubmit(elements);
+  }
+
+  init();
+</script>
