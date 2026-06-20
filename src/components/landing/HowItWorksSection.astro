@@ -16,27 +16,31 @@ interface Step {
 const steps: readonly Step[] = [
   {
     number: 1,
-    label: 'Generate',
-    title: 'Generate',
-    description: 'Prompt any AI coding assistant to build your personal website.',
+    label: 'Connect',
+    title: 'Connect',
+    description:
+      'Connect your AI coding assistant to KeelHq.',
   },
   {
     number: 2,
-    label: 'Connect',
-    title: 'Connect',
-    description: 'Link your site to KeelHq with a single environment variable.',
+    label: 'Create',
+    title: 'Create',
+    description:
+      'Describe the website you want.',
   },
   {
     number: 3,
     label: 'Manage',
     title: 'Manage',
-    description: 'Update your content, media, and settings from the KeelHq dashboard.',
+    description:
+      'Update your content without touching code.',
   },
   {
     number: 4,
-    label: 'Redesign',
-    title: 'Redesign',
-    description: 'Regenerate the front-end whenever you like. Your content stays safe.',
+    label: 'Evolve',
+    title: 'Evolve',
+    description:
+      'Change your website whenever you want.',
   },
 ];
 ---
@@ -49,6 +53,9 @@ const steps: readonly Step[] = [
     <h2 id="how-heading" class="section-title" data-reveal style="transition-delay: 80ms">
       From prompt to published.
     </h2>
+    <p class="section-subtitle" data-reveal style="transition-delay: 120ms">
+      KeelHq gives your AI assistant the backend infrastructure it needs to build real websites, not just static frontends.
+    </p>
 
     <!-- Mobile: vertical timeline -->
     <div class="timeline timeline--vertical">

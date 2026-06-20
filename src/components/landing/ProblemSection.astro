@@ -15,33 +15,23 @@ interface ProblemCard {
 const problems: readonly ProblemCard[] = [
   {
     icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/><path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/></svg>`,
-    title: 'Databases',
-    description: 'AI generates schemas but cannot provision, migrate, or maintain a live database.',
-  },
-  {
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>`,
-    title: 'APIs',
-    description: 'Dynamic data requires real endpoints — far beyond what a static export can offer.',
-  },
-  {
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>`,
-    title: 'Storage',
-    description: 'Images, videos, and files need a CDN-backed bucket — not an AI-generated placeholder.',
-  },
-  {
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>`,
-    title: 'Authentication',
-    description: 'Protecting pages and user accounts requires real identity infrastructure, not mock code.',
+    title: 'Your content has to live somewhere.',
+    description: 'Projects, services, blog posts, case studies, testimonials, and media all need to be stored and managed.',
   },
   {
     icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`,
-    title: 'Contact Forms',
-    description: 'Form submissions need a server to receive, validate, store, and forward messages.',
+    title: 'Visitors need a way to reach you.',
+    description: 'Contact forms, inquiries, bookings, and leads do not work by themselves.',
   },
   {
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>`,
-    title: 'Admin Dashboards',
-    description: 'Managing your own content after launch requires a real CMS — not a rebuilt AI prompt.',
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4L18.5 2.5z"/></svg>`,
+    title: 'Updates should not require a developer.',
+    description: 'Changing text, uploading images, or adding new content should not mean editing code every time.',
+  },
+  {
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>`,
+    title: 'Your website should not break when you redesign it.',
+    description: 'Most websites tie content to design. Change the design and you often end up rebuilding everything.',
   },
 ];
 ---
@@ -52,10 +42,10 @@ const problems: readonly ProblemCard[] = [
   <div class="landing-section">
     <p class="section-label" data-reveal>The Problem</p>
     <h2 id="problem-heading" class="section-title" data-reveal style="transition-delay: 80ms">
-      AI can build websites.<br />It can't maintain them.
+      AI can build websites.<br />It can't help you run one.
     </h2>
     <p class="section-subtitle" data-reveal style="transition-delay: 160ms">
-      Every AI-generated site hits the same wall once it goes live. The code is there — the infrastructure isn't.
+      Today, creating a website is easier than ever. You can describe your idea to an AI and get a beautiful website in minutes. But once the design is finished, a new set of problems appears.
     </p>
 
     <div class="problem-grid">
@@ -71,6 +61,10 @@ const problems: readonly ProblemCard[] = [
         </div>
       ))}
     </div>
+
+    <p class="problem-closing" data-reveal style="transition-delay: 560ms">
+      AI helps you create the website. KeelHq helps you keep it alive.
+    </p>
   </div>
 </section>
 
@@ -125,5 +119,13 @@ const problems: readonly ProblemCard[] = [
     font-size: var(--font-size-base);
     color: var(--color-text-secondary);
     line-height: var(--line-height-normal);
+  }
+
+  .problem-closing {
+    margin-top: var(--space-10);
+    font-size: var(--font-size-section-sub);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    text-align: center;
   }
 </style>

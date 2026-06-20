@@ -9,32 +9,39 @@
 interface SolutionCard {
   readonly icon: string;
   readonly title: string;
+  readonly description: string;
 }
 
 const solutions: readonly SolutionCard[] = [
   {
     icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>`,
     title: 'Content Management',
+    description: 'Manage projects, blogs, services, case studies, and website content.',
   },
   {
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
-    title: 'Authentication',
-  },
-  {
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>`,
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>`,
     title: 'Media Storage',
+    description: 'Store images, logos, profile photos, and website assets.',
   },
   {
     icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>`,
     title: 'Contact Forms',
+    description: 'Receive inquiries and leads without thinking about the code that runs the logic.',
   },
   {
     icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>`,
     title: 'Dashboard',
+    description: 'Manage everything from one place.',
+  },
+  {
+    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`,
+    title: 'Authentication',
+    description: 'Secure access to your content and data.',
   },
   {
     icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>`,
-    title: 'APIs',
+    title: 'APIs & AI Integration',
+    description: 'Connect your website to KeelHq and let AI work with real data.',
   },
 ];
 ---
@@ -46,10 +53,10 @@ const solutions: readonly SolutionCard[] = [
     <div class="solution-text">
       <p class="section-label" data-reveal>The Solution</p>
       <h2 id="solution-heading" class="section-title" data-reveal style="transition-delay: 80ms">
-        The backend for<br />AI-generated websites.
+        The missing piece between AI and a real website.
       </h2>
       <p class="section-subtitle" data-reveal style="transition-delay: 160ms">
-        KeelHq is the infrastructure layer your AI assistant cannot generate. Connect once and your site gets a production-ready backend instantly.
+        Generate your website with AI. Let KeelHq handle everything behind it.
       </p>
     </div>
 
@@ -61,7 +68,8 @@ const solutions: readonly SolutionCard[] = [
           style={`transition-delay: ${240 + index * 80}ms`}
         >
           <span class="solution-card__icon" set:html={card.icon} />
-          <span class="solution-card__title">{card.title}</span>
+          <h3 class="solution-card__title">{card.title}</h3>
+          <p class="solution-card__desc">{card.description}</p>
         </div>
       ))}
     </div>
@@ -123,5 +131,11 @@ const solutions: readonly SolutionCard[] = [
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-semibold);
     color: var(--color-text-primary);
+  }
+
+  .solution-card__desc {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-normal);
   }
 </style>
